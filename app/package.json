@@ -1,0 +1,28 @@
+{
+  "name": "desafio-imersao-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api.js",
+  "scripts": {
+    "start": "nodemon api.js",
+    "prod": "set NODE_ENV=production",
+    "dev": "set NODE_ENV=desenv",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "@CharlesMendes",
+  "license": "ISC",
+  "dependencies": {
+    "boom": "^7.2.0",
+    "dotenv": "^5.0.1",
+    "hapi": "^15.2.0",
+    "hapi-auth-jwt2": "^8.0.0",
+    "hapi-cors": "^1.0.1",
+    "hapi-swagger": "^7.10.0",
+    "inert": "^4.2.1",
+    "joi": "^13.1.2",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.8",
+    "vision": "^4.1.1"
+  }
+}
