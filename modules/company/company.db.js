@@ -4,16 +4,12 @@ const model = getModel();
 
 class CompanyDB {
   static create(company) {
-    // o metodo save, caso o model possuir um _id, ele fará o update
-    // para somente inserir
-    // model.create(user)
     const item = new model(company);
     const result = item.save();
     return result;
   }
 
   static getById(_id) {
-    console.log({ _id });
     const result = model.findOne({ _id }, { __v: 0 });
     return result;
   }
@@ -36,17 +32,23 @@ class CompanyDB {
     return result;
   }
 
-  static listEmployees(id, office) {
-    // const -> quando nao alteramos o valor de uma variavel
-    // let -> quando precisamos alterar apos defini-la, nunca usar o 'var'
+  static list({ skip, limit }) {
     let query = {};
 
-    // caso o usuario nao definir o nome, nao atribui o valor
-    // passamos o options ao regex para definir o case insensitive (ignora upper/lower)
-    // esse regex é um contains
+    const result = model
+      .find(query, { __v: 0 })
+      .skip(skip)
+      .limit(limit);
+
+    return result;
+  }
+
+  static listEmployeesByOffice(idCompany, office) {
+    let query = {};
+
     if (office) {
       query = {
-        $and: [{ _id: id }, { office }],
+        $and: [{ _id: idCompany }, { 'employees.office': office }],
       };
     }
 

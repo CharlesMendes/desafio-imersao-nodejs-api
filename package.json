@@ -1,0 +1,35 @@
+{
+  "name": "desafioh4-imersao-nodejs-api",
+  "version": "1.0.0",
+  "description": "Desafio H4 - Imersão NodeJs API",
+  "main": "api.js",
+  "scripts": {
+    "preinstall": "npm i -g pm2",
+    "start": "nodemon api.js",
+    "prod": "set NODE_ENV=production && pm2-docker api.js",
+    "dev": "set NODE_ENV=desenv && pm2 start --name api-desafioh4 api.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "boom": "^7.1.1",
+    "commander": "^2.14.1",
+    "dotenv": "^5.0.0",
+    "hapi": "^15.2.0",
+    "hapi-auth-jwt2": "^7.4.1",
+    "hapi-cors": "^1.0.1",
+    "hapi-router": "^3.5.0",
+    "hapi-swagger": "^7.10.0",
+    "inert": "^4.2.1",
+    "joi": "^13.1.2",
+    "joi-date-extensions": "^1.1.1",
+    "jsonwebtoken": "^8.1.1",
+    "mongodb": "^3.0.2",
+    "mongoose": "^5.0.6",
+    "vision": "^4.1.1",
+    "winston": "^2.4.0"
+  }
+}

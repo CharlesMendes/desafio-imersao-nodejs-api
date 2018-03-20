@@ -1,5 +1,15 @@
-// Conexão com o MongoDB
-const MongoConn = require('../../db/database');
+// nodemon nomeDoArquivo.js
+const Mongoose = require('mongoose');
+Mongoose.connect(process.env.MONGO_URL);
+
+const connection = Mongoose.connection;
+
+connection.once('open', () =>
+  console.log('Base de dados, conectada MANOWWWWW'),
+);
+connection.once('error', () =>
+  console.error('Não foi possível conectar, VISHHHH'),
+);
 
 // exportar apenas funções especificas
 const { getModel } = require('./user.model');
@@ -16,7 +26,6 @@ class UserDB {
   }
 
   static getById(_id) {
-    console.log({ _id });
     const result = model.findOne({ _id }, { __v: 0 });
     return result;
   }
@@ -39,28 +48,24 @@ class UserDB {
     return result;
   }
 
-  static list() {
-    // const -> quando nao alteramos o valor de uma variavel
-    // let -> quando precisamos alterar apos defini-la, nunca usar o 'var'
+  static list({ skip, limit }) {
     let query = {};
 
-    const result = model.find(query, { __v: 0 });
+    const result = model
+      .find(query, { __v: 0 })
+      .skip(skip)
+      .limit(limit);
+
     return result;
   }
-  
-  static login({ email, password }) {
-    // const -> quando nao alteramos o valor de uma variavel
-    // let -> quando precisamos alterar apos defini-la, nunca usar o 'var'
+
+  static login(user) {
     let query = {};
 
-    // caso o usuario nao definir o nome, nao atribui o valor
-    // passamos o options ao regex para definir o case insensitive (ignora upper/lower)
-    // esse regex é um contains
-    if (email) {
-      query = {
-        $and: [{ email }, { password }],
-      };
-    }
+    query = {
+      //$and: [{ email: user.email }, { password: user.password }],
+      $and: [{ email: user.email }],
+    };
 
     const result = model.find(query, { __v: 0 });
     return result;
